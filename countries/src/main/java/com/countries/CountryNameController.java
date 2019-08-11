@@ -20,16 +20,23 @@ public class CountryNameController
         return new ResponseEntity<>(CountriesApplication.countryList.sortCountries(), HttpStatus.OK);
     }
 
-    @GetMapping(value="/start/{letter}", produces = {"application/json"})
-    public ResponseEntity<?> getCountriesByLetter(@PathVariable String letter)
+    @GetMapping(value = "/start/{letter}",
+                produces = {"application/json"})
+    public ResponseEntity<?> getCountriesByLetter(
+            @PathVariable
+                    String letter)
     {
         ArrayList<Country> rtnCountries = CountriesApplication.countryList.countryByFirstLetter(letter);
-        return new ResponseEntity<>(rtnCountries,HttpStatus.OK);
+        return new ResponseEntity<>(rtnCountries, HttpStatus.OK);
     }
 
-    @GetMapping(value="/size/{number}",produces = {"application/json"})
-    public ResponseEntity<?> getCountriesBySize(@PathVariable long number)
+    @GetMapping(value = "/size/{number}",
+                produces = {"application/json"})
+    public ResponseEntity<?> getCountriesBySize(
+            @PathVariable
+                    int number)
     {
-        return null;
+        ArrayList<Country> rtnCountries = CountriesApplication.countryList.countryByNameLength(number);
+        return new ResponseEntity<>(rtnCountries, HttpStatus.OK);
     }
 }

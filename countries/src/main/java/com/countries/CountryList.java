@@ -227,12 +227,27 @@ public class CountryList
         ArrayList<Country> tempCountryList = new ArrayList<>();
         for (Country c : countryList)
         {
-            if (c.getName().toUpperCase().startsWith(letter.toUpperCase())) {
+            if (c.getName().toUpperCase().startsWith(letter.toUpperCase()))
+            {
                 tempCountryList.add(c);
             }
 
         }
-        tempCountryList.sort((c1,c2)->c1.getName().compareToIgnoreCase(c2.getName()));
+        tempCountryList.sort((c1, c2) -> c1.getName().compareToIgnoreCase(c2.getName()));
+        return tempCountryList;
+    }
+
+    public ArrayList<Country> countryByNameLength(int number)
+    {
+        ArrayList<Country> tempCountryList = new ArrayList<>();
+        for (Country c : countryList)
+        {
+            if (c.getName().length() >= number)
+            {
+                tempCountryList.add(c);
+            }
+        }
+        tempCountryList.sort((c1, c2) -> c1.getName().compareToIgnoreCase(c2.getName()));
         return tempCountryList;
     }
 
