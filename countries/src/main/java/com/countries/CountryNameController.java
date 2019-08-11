@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
+
 @RestController
 @RequestMapping("/names")
 public class CountryNameController
@@ -21,7 +23,8 @@ public class CountryNameController
     @GetMapping(value="/start/{letter}", produces = {"application/json"})
     public ResponseEntity<?> getCountriesByLetter(@PathVariable String letter)
     {
-        return null;
+        ArrayList<Country> rtnCountries = CountriesApplication.countryList.countryByFirstLetter(letter);
+        return new ResponseEntity<>(rtnCountries,HttpStatus.OK);
     }
 
     @GetMapping(value="/size/{number}",produces = {"application/json"})

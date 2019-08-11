@@ -39,6 +39,11 @@ public class Country
         return name;
     }
 
+    public String getFirstLetterName()
+    {
+        return name.substring(0,0);
+    }
+
     public void setName(String name)
     {
         this.name = name;
