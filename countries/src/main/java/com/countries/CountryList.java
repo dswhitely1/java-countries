@@ -1,6 +1,7 @@
 package com.countries;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class CountryList
 {
@@ -210,4 +211,16 @@ public class CountryList
         countryList.add(new Country("Antigua and Barbuda",104084,440,32));
         countryList.add(new Country("Seychelles",95702,460,36));
     }
+
+    public ArrayList<Country> sortCountries()
+    {
+        ArrayList<Country> tempCountryList = new ArrayList<>();
+        for (Country c: countryList)
+        {
+            tempCountryList.add(c);
+        }
+        tempCountryList.sort((c1,c2) -> c1.getName().compareToIgnoreCase(c2.getName()));
+        return tempCountryList;
+    }
+
 }

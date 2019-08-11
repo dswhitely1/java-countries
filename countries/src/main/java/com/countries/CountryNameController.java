@@ -1,5 +1,6 @@
 package com.countries;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +15,7 @@ public class CountryNameController
                 produces = {"application/json"})
     public ResponseEntity<?> getAllNames()
     {
-        return null;
+        return new ResponseEntity<>(CountriesApplication.countryList.sortCountries(), HttpStatus.OK);
     }
 
     @GetMapping(value="/start/{letter}", produces = {"application/json"})
