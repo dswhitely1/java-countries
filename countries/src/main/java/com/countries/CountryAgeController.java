@@ -13,29 +13,35 @@ import java.util.ArrayList;
 @RequestMapping("/age")
 public class CountryAgeController
 {
-    @GetMapping(value="/age/{age}", produces = {"application/json"})
-    public ResponseEntity<?> getCountryByMedianAge(@PathVariable int age)
+    @GetMapping(value = "/age/{age}",
+                produces = {"application/json"})
+    public ResponseEntity<?> getCountriesByMedianAge(
+            @PathVariable
+                    int age)
     {
         ArrayList<Country> rtnCountries = CountriesApplication.countryList.getCountriesByMedianAge(age);
         return new ResponseEntity<>(rtnCountries, HttpStatus.OK);
     }
 
-    @GetMapping(value="/min", produces = {"application/json"})
+    @GetMapping(value = "/min",
+                produces = {"application/json"})
     public ResponseEntity<?> getCountryByYoungestAge()
     {
-        return new ResponseEntity<>(CountriesApplication.countryList.getCountryByLowestAge(),HttpStatus.OK);
+        return new ResponseEntity<>(CountriesApplication.countryList.getCountryByLowestAge(), HttpStatus.OK);
     }
 
-    @GetMapping(value="/max", produces = {"application/json"})
+    @GetMapping(value = "/max",
+                produces = {"application/json"})
     public ResponseEntity<?> getCountryByOldestAge()
     {
-        return new ResponseEntity<>(CountriesApplication.countryList.getCountryByMaxAge(),HttpStatus.OK);
+        return new ResponseEntity<>(CountriesApplication.countryList.getCountryByMaxAge(), HttpStatus.OK);
     }
 
     /* Stretch Goal */
-    @GetMapping(value="/median", produces = {"application/json"})
+    @GetMapping(value = "/median",
+                produces = {"application/json"})
     public ResponseEntity<?> getCountryByMedianAge()
     {
-        return null;
+        return new ResponseEntity<>(CountriesApplication.countryList.getCountryByMedianAge(), HttpStatus.OK);
     }
 }

@@ -309,4 +309,20 @@ public class CountryList
         tempCountryList.sort((c1,c2) -> c2.getAge() - c1.getAge());
         return tempCountryList.get(0);
     }
+
+    public Country getCountryByMedianAge()
+    {
+        ArrayList<Country> tempCountryList = workingCountryList();
+        tempCountryList.sort(Comparator.comparingInt(Country::getAge));
+        int index = tempCountryList.toArray().length / 2;
+        return tempCountryList.get(index);
+    }
+
+    public Country getCountryByMedianPopulation()
+    {
+        ArrayList<Country> tempCountryList = workingCountryList();
+        tempCountryList.sort((c1, c2) -> (int) (c1.getPopulation() - c2.getPopulation()));
+        int index = tempCountryList.toArray().length / 2;
+        return tempCountryList.get(index);
+    }
 }

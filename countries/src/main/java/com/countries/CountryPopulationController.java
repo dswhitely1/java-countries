@@ -42,6 +42,6 @@ public class CountryPopulationController
                 produces = {"application/json"})
     public ResponseEntity<?> getCountryByMedian()
     {
-        return null;
+        return new ResponseEntity<>(CountriesApplication.countryList.getCountryByMedianPopulation(), HttpStatus.OK);
     }
 }
