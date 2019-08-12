@@ -251,4 +251,29 @@ public class CountryList
         return tempCountryList;
     }
 
+    public ArrayList<Country> countriesByPopulationSize(long people)
+    {
+        ArrayList<Country> tempCountryList = new ArrayList<>();
+        for (Country c: countryList)
+        {
+            if (c.getPopulation() >= people)
+            {
+                tempCountryList.add(c);
+            }
+        }
+        tempCountryList.sort((c1, c2) -> c1.getName().compareToIgnoreCase(c2.getName()));
+        return tempCountryList;
+    }
+
+    public Country getCountryByLowestPopulation()
+    {
+        ArrayList<Country> tempCountryList = new ArrayList<>();
+        for (Country c: countryList)
+        {
+            tempCountryList.add(c);
+        }
+        tempCountryList.sort((c1, c2)->(int)(c1.getPopulation() - c2.getPopulation()));
+        return tempCountryList.get(0);
+    }
+
 }
