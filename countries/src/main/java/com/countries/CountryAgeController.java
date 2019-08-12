@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 @RestController
 @RequestMapping("/age")
@@ -19,7 +20,7 @@ public class CountryAgeController
             @PathVariable
                     int age)
     {
-        ArrayList<Country> rtnCountries = CountriesApplication.countryList.getCountriesByMedianAge(age);
+        ArrayList<Country> rtnCountries = CountriesApplication.countryList.findCountries(c -> c.getAge() >= age);
         return new ResponseEntity<>(rtnCountries, HttpStatus.OK);
     }
 
@@ -27,14 +28,18 @@ public class CountryAgeController
                 produces = {"application/json"})
     public ResponseEntity<?> getCountryByYoungestAge()
     {
-        return new ResponseEntity<>(CountriesApplication.countryList.getCountryByLowestAge(), HttpStatus.OK);
+        ArrayList<Country> tempCountryList = CountriesApplication.countryList.findCountries(c -> true);
+        tempCountryList.sort(Comparator.comparingInt(Country::getAge));
+        return new ResponseEntity<>(tempCountryList.get(0), HttpStatus.OK);
     }
 
     @GetMapping(value = "/max",
                 produces = {"application/json"})
     public ResponseEntity<?> getCountryByOldestAge()
     {
-        return new ResponseEntity<>(CountriesApplication.countryList.getCountryByMaxAge(), HttpStatus.OK);
+        ArrayList<Country> tempCountryList = CountriesApplication.countryList.findCountries(c -> true);
+        tempCountryList.sort((c1, c2) -> c2.getAge() - c1.getAge());
+        return new ResponseEntity<>(tempCountryList.get(0), HttpStatus.OK);
     }
 
     /* Stretch Goal */
@@ -42,6 +47,8 @@ public class CountryAgeController
                 produces = {"application/json"})
     public ResponseEntity<?> getCountryByMedianAge()
     {
-        return new ResponseEntity<>(CountriesApplication.countryList.getCountryByMedianAge(), HttpStatus.OK);
+        ArrayList<Country> tempCountryList = CountriesApplication.countryList.findCountries(c -> true);
+        tempCountryList.sort(Comparator.comparingInt(Country::getAge));
+        return new ResponseEntity<>(tempCountryList.get(tempCountryList.toArray().length / 2), HttpStatus.OK);
     }
 }

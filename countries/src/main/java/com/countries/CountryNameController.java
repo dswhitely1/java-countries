@@ -13,11 +13,14 @@ import java.util.ArrayList;
 @RequestMapping("/names")
 public class CountryNameController
 {
+
     @GetMapping(value = "/all",
                 produces = {"application/json"})
     public ResponseEntity<?> getAllNames()
     {
-        return new ResponseEntity<>(CountriesApplication.countryList.sortCountries(), HttpStatus.OK);
+        ArrayList<Country> rtnCountries = CountriesApplication.countryList.findCountries(c -> true);
+        rtnCountries.sort((c1, c2) -> c1.getName().compareToIgnoreCase(c2.getName()));
+        return new ResponseEntity<>(rtnCountries, HttpStatus.OK);
     }
 
     @GetMapping(value = "/start/{letter}",
@@ -26,7 +29,8 @@ public class CountryNameController
             @PathVariable
                     String letter)
     {
-        ArrayList<Country> rtnCountries = CountriesApplication.countryList.countryByFirstLetter(letter);
+        ArrayList<Country> rtnCountries = CountriesApplication.countryList.findCountries(c -> c.getName().toUpperCase().startsWith(letter.toUpperCase()));
+        rtnCountries.sort((c1, c2) -> c1.getName().compareToIgnoreCase(c2.getName()));
         return new ResponseEntity<>(rtnCountries, HttpStatus.OK);
     }
 
@@ -36,7 +40,8 @@ public class CountryNameController
             @PathVariable
                     int number)
     {
-        ArrayList<Country> rtnCountries = CountriesApplication.countryList.countryByNameLength(number);
+        ArrayList<Country> rtnCountries = CountriesApplication.countryList.findCountries(c -> c.getName().length() >= number);
+        rtnCountries.sort((c1, c2) -> c1.getName().compareToIgnoreCase(c2.getName()));
         return new ResponseEntity<>(rtnCountries, HttpStatus.OK);
     }
 }
