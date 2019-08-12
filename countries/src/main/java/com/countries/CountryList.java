@@ -1,8 +1,10 @@
 package com.countries;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class CountryList
+
 {
     public ArrayList<Country> countryList = new ArrayList<>();
 
@@ -211,13 +213,14 @@ public class CountryList
         countryList.add(new Country("Seychelles", 95702, 460, 36));
     }
 
+    private ArrayList<Country> workingCountryList()
+    {
+        return new ArrayList<>(countryList);
+    }
+
     public ArrayList<Country> sortCountries()
     {
-        ArrayList<Country> tempCountryList = new ArrayList<>();
-        for (Country c : countryList)
-        {
-            tempCountryList.add(c);
-        }
+        ArrayList<Country> tempCountryList = workingCountryList();
         tempCountryList.sort((c1, c2) -> c1.getName().compareToIgnoreCase(c2.getName()));
         return tempCountryList;
     }
@@ -254,7 +257,7 @@ public class CountryList
     public ArrayList<Country> countriesByPopulationSize(long people)
     {
         ArrayList<Country> tempCountryList = new ArrayList<>();
-        for (Country c: countryList)
+        for (Country c : countryList)
         {
             if (c.getPopulation() >= people)
             {
@@ -267,24 +270,43 @@ public class CountryList
 
     public Country getCountryByLowestPopulation()
     {
-        ArrayList<Country> tempCountryList = new ArrayList<>();
-        for (Country c: countryList)
-        {
-            tempCountryList.add(c);
-        }
-        tempCountryList.sort((c1, c2)->(int)(c1.getPopulation() - c2.getPopulation()));
+        ArrayList<Country> tempCountryList = workingCountryList();
+        tempCountryList.sort((c1, c2) -> (int) (c1.getPopulation() - c2.getPopulation()));
         return tempCountryList.get(0);
     }
 
     public Country getCountryByHighestPopulation()
     {
-        ArrayList<Country> tempCountryList = new ArrayList<>();
-        for (Country c: countryList)
-        {
-            tempCountryList.add(c);
-        }
-        tempCountryList.sort((c1, c2)->(int)(c2.getPopulation() - c1.getPopulation()));
+        ArrayList<Country> tempCountryList = workingCountryList();
+        tempCountryList.sort((c1, c2) -> (int) (c2.getPopulation() - c1.getPopulation()));
         return tempCountryList.get(0);
     }
 
+    public ArrayList<Country> getCountriesByMedianAge(int age)
+    {
+        ArrayList<Country> tempCountryList = new ArrayList<>();
+        for (Country c : countryList)
+        {
+            if (c.getAge() >= age)
+            {
+                tempCountryList.add(c);
+            }
+        }
+        tempCountryList.sort((c1, c2) -> c1.getName().compareToIgnoreCase(c2.getName()));
+        return tempCountryList;
+    }
+
+    public Country getCountryByLowestAge()
+    {
+        ArrayList<Country> tempCountryList = workingCountryList();
+        tempCountryList.sort(Comparator.comparingInt(Country::getAge));
+        return tempCountryList.get(0);
+    }
+
+    public Country getCountryByMaxAge()
+    {
+        ArrayList<Country> tempCountryList = workingCountryList();
+        tempCountryList.sort((c1,c2) -> c2.getAge() - c1.getAge());
+        return tempCountryList.get(0);
+    }
 }

@@ -13,27 +13,33 @@ import java.util.ArrayList;
 @RequestMapping("/population")
 public class CountryPopulationController
 {
-    @GetMapping(value = "/size/{people}", produces = {"application/json"})
-    public ResponseEntity<?> getCountryByPopulationSize(@PathVariable long people)
+    @GetMapping(value = "/size/{people}",
+                produces = {"application/json"})
+    public ResponseEntity<?> getCountryByPopulationSize(
+            @PathVariable
+                    long people)
     {
         ArrayList<Country> rtnCountries = CountriesApplication.countryList.countriesByPopulationSize(people);
         return new ResponseEntity<>(rtnCountries, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/min", produces = {"application/json"})
+    @GetMapping(value = "/min",
+                produces = {"application/json"})
     public ResponseEntity<?> getCountryByLeastPopulation()
     {
         return new ResponseEntity<>(CountriesApplication.countryList.getCountryByLowestPopulation(), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/max", produces = {"application/json"})
+    @GetMapping(value = "/max",
+                produces = {"application/json"})
     public ResponseEntity<?> getCountryByMostPopulation()
     {
-        return new ResponseEntity<>(CountriesApplication.countryList.getCountryByHighestPopulation(),HttpStatus.OK);
+        return new ResponseEntity<>(CountriesApplication.countryList.getCountryByHighestPopulation(), HttpStatus.OK);
     }
 
     /* Stretch Goal */
-    @GetMapping(value="/median", produces = {"application/json"})
+    @GetMapping(value = "/median",
+                produces = {"application/json"})
     public ResponseEntity<?> getCountryByMedian()
     {
         return null;
