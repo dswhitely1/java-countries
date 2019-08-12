@@ -29,7 +29,7 @@ public class CountryPopulationController
     @GetMapping(value = "/max", produces = {"application/json"})
     public ResponseEntity<?> getCountryByMostPopulation()
     {
-        return null;
+        return new ResponseEntity<>(CountriesApplication.countryList.getCountryByHighestPopulation(),HttpStatus.OK);
     }
 
     /* Stretch Goal */

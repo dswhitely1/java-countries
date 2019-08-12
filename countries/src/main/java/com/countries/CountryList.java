@@ -276,4 +276,15 @@ public class CountryList
         return tempCountryList.get(0);
     }
 
+    public Country getCountryByHighestPopulation()
+    {
+        ArrayList<Country> tempCountryList = new ArrayList<>();
+        for (Country c: countryList)
+        {
+            tempCountryList.add(c);
+        }
+        tempCountryList.sort((c1, c2)->(int)(c2.getPopulation() - c1.getPopulation()));
+        return tempCountryList.get(0);
+    }
+
 }
